@@ -6,6 +6,8 @@ immutable int TileDim=50;
 immutable int MinWid=2;
 immutable int MaxWid=8;
 
+Xorshift rndGen;
+
 void main(string[] args) {
 	int v;	
 	getopt(args, "v", &v);
@@ -88,10 +90,10 @@ int CheckColl(int x,int y,int w,int h, Room* rs, const int lenrs){
 }
 
 int MakeRoom(Room* rs, int lenrs){
-	immutable int x = uniform(0,TileDim);
-	immutable int y = uniform(0,TileDim);
-	immutable int w = uniform(MinWid,MaxWid);
-	immutable int h = uniform(MinWid,MaxWid);
+	immutable int x = uniform(0,TileDim,rndGen);
+	immutable int y = uniform(0,TileDim,rndGen);
+	immutable int w = uniform(MinWid,MaxWid,rndGen);
+	immutable int h = uniform(MinWid,MaxWid,rndGen);
 
 	if(x+w>=TileDim || y+h>=TileDim || x==0 || y==0) return lenrs;
 	int nocrash = CheckColl(x,y,w,h,rs,lenrs);
